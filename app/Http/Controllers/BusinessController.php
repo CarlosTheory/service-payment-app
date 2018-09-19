@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Business;
 //Validator
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-
-class UserController extends Controller
+class BusinessController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        //Obtener todos los usuarios
-        return User::all();
+        return Business::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -30,13 +38,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Nuevo Usuario
+        // Nuevo Negocio
         //Validacion
         $rules = [
             'name' => 'required',
-            'last_name' => 'required',
             'email' => 'required',
-            'dni' => 'required',
+            'rif' => 'required',
             'password' => 'required',
             'country' => 'required',
             'state' => 'required',
@@ -45,7 +52,7 @@ class UserController extends Controller
             'phone_number' => 'required'
         ];
 
-        $customMessage = [
+          $customMessage = [
             "required" => 'Por favor rellene todos los :attribute'
         ];
         // Procesar que todos los campos requeridos esten
@@ -54,9 +61,8 @@ class UserController extends Controller
         // Pasar datos
         try {
             $name = $request->input('name');
-            $last_name = $request->input('last_name');
             $email = $request->input('email');
-            $dni = $request->input('dni');
+            $rif = $request->input('rif');
             $password = $request->input('password');
             $country = $request->input('country');
             $state = $request->input('state');
@@ -64,11 +70,10 @@ class UserController extends Controller
             $address = $request->input('address');
             $phone_number = $request->input('phone_number');
 
-            $user = User::create([
+            $business = Business::create([
                 'name' => $name,
-                'last_name' => $last_name,
                 'email' => $email,
-                'dni' => $dni,
+                'rif' => $rif,
                 'password' => Hash::make($password),
                 'country' => $country,
                 'state' => $state,
@@ -80,7 +85,7 @@ class UserController extends Controller
             $response['status'] = true;
             $response['message'] = 'Registro exitoso';
 
-            return response()->json($user, 201);
+            return response()->json($business, 201);
 
         } catch(\Illuminate\Database\QueryException $ex){
             $response['status'] = false;
@@ -98,10 +103,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //Mostrar solo 1 usuario
-        return User::findOrFail($id);
+        //Mostrar solo 1 negocio
+        return Business::findOrFail($id);
     }
-
+   
     /**
      * Update the specified resource in storage.
      *
@@ -111,9 +116,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //Modificar Usuaruio
-        $usuario = User::findOrFail($id);
-        $usuario->update($request->all());
+        //Modificar Negocio
+        $business = Business::findOrFail($id);
+        $business->update($request->all());
 
         return response()->json(["message" => "Actualizado"]);
     }
@@ -126,9 +131,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-       $user = User::findOrFail($id);
-       $user->delete();
+       $business = Business::findOrFail($id);
+       $business->delete();
 
-       return $user;
+       return $business;
     }
 }
