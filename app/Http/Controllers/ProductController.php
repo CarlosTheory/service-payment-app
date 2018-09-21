@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Business;
+use Response;
 
 
 class ProductController extends Controller
@@ -12,9 +14,11 @@ class ProductController extends Controller
 	public $percentage = 10;
 
 		public function index(){
-			$products = Product::with('businesses')->get();
+			return Response::json(Product::with('businesses')->get());
+			// $products = Product::with('businesses')->get();
 
-			var_dump($products); die();
+			// var_dump($products);
+			//var_dump($products); die();
 			// foreach ($products as $product) {
 			// 	    [
 			// 		$product->id,
@@ -29,7 +33,7 @@ class ProductController extends Controller
 			// 	];
 			// }
 
-			return response()->json($products, 201);
+			//return response()->json($products, 201);
 		}
 
         public function store($id, Request $request)
@@ -80,5 +84,21 @@ class ProductController extends Controller
 
 	            return response($response, 500);
 	        }
+	    }
+
+	    public function show($id)
+	    {	
+	    	// $product = Product::findOrFail($id);
+	    	$product = Business::with('products')->find($id)->products;
+	    	// return Response::json(Product::with('businesses')->get());
+
+	    	// $request = Product::findOrFail($id);
+	    	// $business_id = $request->business_id;
+
+	    	// $res = [
+
+	    	// ]
+	        //Mostrar solo 1 producto
+	        return Response::json($product, 201);
 	    }
 }

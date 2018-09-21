@@ -54,5 +54,13 @@ Route::delete('/business/{id}', 'BusinessController@destroy');
 Route::put('/business/{id}', 'BusinessController@update');
 // <<<<END OF ROUTES FOR BUSINESSES>>>>
 
+// <<<<ROUTES FOR PRODUCTS>>>>
+// Obtener todos los productos
 Route::get('/products', 'ProductController@index');
+
+//Crear nuevo producto
 Route::post('/business/{id}/product/new', 'ProductController@store');
+
+// Obtener 1 producto
+Route::get('/product/{id}', 'ProductController@show');
+// <<<<END OF ROUTES FOR BUSINESSES>>>>

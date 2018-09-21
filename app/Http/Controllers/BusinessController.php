@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Business;
+use Response;
 //Validator
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -104,7 +105,7 @@ class BusinessController extends Controller
     public function show($id)
     {
         //Mostrar solo 1 negocio
-        return Business::findOrFail($id);
+        return Response(Business::findOrFail($id));
     }
    
     /**
