@@ -53,3 +53,6 @@ Route::delete('/business/{id}', 'BusinessController@destroy');
 // Modificar Negocio
 Route::put('/business/{id}', 'BusinessController@update');
 // <<<<END OF ROUTES FOR BUSINESSES>>>>
+
+Route::get('/products', 'ProductController@index');
+Route::post('/business/{id}/product/new', 'ProductController@store');

@@ -13,4 +13,9 @@ class Business extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function products()
+    {
+    	return $this->hasMany('App\Product');
+    }
 }
