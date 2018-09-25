@@ -35,7 +35,7 @@ class ProductTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store(Request $request)
     {
         //Guardar Tipos de productos
         //Validacion
@@ -52,11 +52,9 @@ class ProductTypeController extends Controller
 
         try{
             $name = $request->input('name');
-            $product_id = $id;
 
             $product_type = typeProducts::create([
                 'name' => $name,
-                'product_id' => $product_id
             ]);
 
             return response()->json($product_type, 201);

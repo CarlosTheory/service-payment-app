@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = [
-    	'name', 'price', 'iva', 'percentage', 'state', 'business_id'
-    ];
+    protected $guarded = [];
 
     // protected $hidden = [
     // 	'business_id'
@@ -17,5 +15,10 @@ class Product extends Model
     public function businesses()
     {
     	return $this->belongsTo('App\Business', 'id');
+    }
+
+    public function types()
+    {
+    	return $this->belongsTo('App\typeProducts', 'id');
     }
 }

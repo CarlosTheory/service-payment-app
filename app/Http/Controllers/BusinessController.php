@@ -46,15 +46,17 @@ class BusinessController extends Controller
             'email' => 'required',
             'rif' => 'required',
             'password' => 'required',
+            'description' => 'required',
             'country' => 'required',
             'state' => 'required',
             'city' => 'required',
             'address' => 'required',
+            'zip_code' => 'required',
             'phone_number' => 'required'
         ];
 
           $customMessage = [
-            "required" => 'Por favor rellene todos los :attribute'
+            "required" => 'Por favor rellene todos los ::attribute'
         ];
         // Procesar que todos los campos requeridos esten
         $this->validate($request, $rules, $customMessage);
@@ -65,22 +67,32 @@ class BusinessController extends Controller
             $email = $request->input('email');
             $rif = $request->input('rif');
             $password = $request->input('password');
+            $description = $request->input('description');
             $country = $request->input('country');
             $state = $request->input('state');
             $city = $request->input('city');
             $address = $request->input('address');
+            $zip_code = $request->input('zip_code');
+            $latitude = $request->input('latitude');
+            $longitude = $request->input('longitude');
             $phone_number = $request->input('phone_number');
+            $website = $request->input('website');
 
             $business = Business::create([
                 'name' => $name,
                 'email' => $email,
                 'rif' => $rif,
                 'password' => Hash::make($password),
+                'description' => $description,
                 'country' => $country,
                 'state' => $state,
                 'city' => $city,
                 'address' => $address,
+                'zip_code' => $zip_code,
+                'latitude' => $latitude,
+                'longitude' => $longitude,
                 'phone_number' => $phone_number,
+                'website' => $website
             ]);
 
             $response['status'] = true;

@@ -42,6 +42,7 @@ class UserController extends Controller
             'state' => 'required',
             'city' => 'required',
             'address' => 'required',
+            'zip_code' => 'required',
             'phone_number' => 'required'
         ];
 
@@ -62,6 +63,9 @@ class UserController extends Controller
             $state = $request->input('state');
             $city = $request->input('city');
             $address = $request->input('address');
+            $zip_code = $request->input('zip_code');
+            $latitude = $request->input('latitude');
+            $longitude = $request->input('longitude');
             $phone_number = $request->input('phone_number');
 
             $user = User::create([
@@ -74,6 +78,9 @@ class UserController extends Controller
                 'state' => $state,
                 'city' => $city,
                 'address' => $address,
+                'zip_code' => $zip_code,
+                'latitude' => $latitude,
+                'longitude' => $longitude,
                 'phone_number' => $phone_number,
             ]);
 

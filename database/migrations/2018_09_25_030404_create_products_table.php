@@ -20,7 +20,8 @@ class CreateProductsTable extends Migration
             $table->decimal('iva');
             $table->decimal('percentage');
             $table->timestamps();
-            $table->string('state');
+            $table->string('state', 10);
+            $table->string('description', 200);
             $table->unsignedInteger('business_id')->nullable();
             $table->foreign('business_id')
                   ->references('id')

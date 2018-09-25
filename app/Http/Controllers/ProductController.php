@@ -36,14 +36,15 @@ class ProductController extends Controller
 			//return response()->json($products, 201);
 		}
 
-        public function store($id, Request $request)
+        public function store($b_id, $t_id, Request $request)
 	    {
 	        // Nuevo Negocio
 	        //Validacion
 	        $rules = [
 	            'name' => 'required',
 	            'price' => 'required',
-	            'state' => 'required',
+				'state' => 'required',
+				'description' => 'required'
 
 	        ];
 
@@ -57,8 +58,10 @@ class ProductController extends Controller
 	        try {
 	            $name = $request->input('name');
 	            $price = $request->input('price');
-	            $state = $request->input('state');
-	            $business_id = $id;
+				$state = $request->input('state');
+				$description = $request->input('description');
+				$business_id = $b_id;
+				$type_id = $t_id;
 
 
 	            $calcular_iva = ($this->iva*$price)/100;
@@ -69,8 +72,10 @@ class ProductController extends Controller
 	                'price' => $price,
 	                'iva' => $calcular_iva,
 	                'percentage' => $calcular_percentage,
-	                'state' => $state,
-	                'business_id' => $business_id
+					'state' => $state,
+					'description' => $description,
+					'business_id' => $business_id,
+					'type_id' => $type_id
 	            ]);
 
 	            $response['status'] = true;

@@ -59,8 +59,19 @@ Route::put('/business/{id}', 'BusinessController@update');
 Route::get('/products', 'ProductController@index');
 
 //Crear nuevo producto
-Route::post('/business/{id}/product/new', 'ProductController@store');
+Route::post('/business/{b_id}/type/{t_id}/product/new', 'ProductController@store');
 
 // Obtener 1 producto
 Route::get('/product/{id}', 'ProductController@show');
-// <<<<END OF ROUTES FOR BUSINESSES>>>>
+// <<<<END OF ROUTES FOR PRODUCTS>>>>
+
+// <<<<ROUTES FOR PRODUCT TYPES>>>>
+// Obtener todos los productos
+Route::get('/type/products', 'ProductTypeController@index');
+
+//Crear nuevo producto
+Route::post('/type/product/new', 'ProductTypeController@store');
+
+// Obtener 1 producto
+Route::get('/product/{id}', 'ProductController@show');
+// <<<<END OF ROUTES FOR PRODUCT TYPES>>>>
