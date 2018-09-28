@@ -25,9 +25,10 @@ class CreateUsersTable extends Migration
             $table->string('city', 50);
             $table->string('address', 200);
             $table->integer('zip_code');
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->string('phone_number', 20);
+            $table->string('api_token', 100)->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

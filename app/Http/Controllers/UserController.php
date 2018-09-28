@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 //Validator
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,6 +17,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function login()
+    {
+        if(Auth::attempt(['email' => request('email'), 'password' => request ('password')]))    
+        {
+            $user=Auth::user();
+            $success['token'] = $user->createToken('ServicePayment')-> accessToken;
+
+            return response()->json(['success' => $success], 201);
+        } else {
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+    }
+
     public function index()
     {
         //Obtener todos los usuarios
@@ -28,7 +43,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function register(Request $request)
     {
         // Nuevo Usuario
         //Validacion
@@ -84,10 +99,13 @@ class UserController extends Controller
                 'phone_number' => $phone_number,
             ]);
 
+            $success['token'] =  $user->createToken('ServicePayment')->accessToken; 
+            $success['email'] = $user->email;
+
             $response['status'] = true;
             $response['message'] = 'Registro exitoso';
 
-            return response()->json($user, 201);
+            return response()->json(['success' => $success], 201);
 
         } catch(\Illuminate\Database\QueryException $ex){
             $response['status'] = false;
@@ -95,6 +113,12 @@ class UserController extends Controller
 
             return response($response, 500);
         }
+    }
+
+    public function details(){
+        $user=Auth::user();
+
+        return response()->json(['success' => $user], 201);
     }
 
     /**

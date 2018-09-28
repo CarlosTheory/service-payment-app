@@ -27,8 +27,9 @@ Route::get('/users', 'UserController@index');
 Route::get('/user/{id}', 'UserController@show');
 
 // Registrar Usuario
-Route::post('/user/new', 'UserController@store');
-
+Route::post('/user/new', 'UserController@register');
+//Login
+Route::post('/login', 'UserController@login');
 // Eliminar Usuario
 Route::delete('/user/{id}', 'UserController@destroy');
 
@@ -36,6 +37,9 @@ Route::delete('/user/{id}', 'UserController@destroy');
 Route::put('/user/{id}', 'UserController@update');
 // <<<<END OF ROUTES FOR USERS>>>>
 
+Route::group(['middleware' => 'auth:api'], function(){
+	Route::post('/details', 'UserController@details');
+});
 
 // <<<<ROUTES FOR BUSINESSES>>>>
 // Mostrar negocios
