@@ -24,17 +24,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/users', 'UserController@index');
 
 // Mostrar solo un usuario
-Route::get('/user/{id}', 'UserController@show');
+Route::get('/user/{user}', 'UserController@show');
 
 // Registrar Usuario
 Route::post('/user/new', 'UserController@register');
 //Login
 Route::post('/login', 'UserController@login');
 // Eliminar Usuario
-Route::delete('/user/{id}', 'UserController@destroy');
+Route::delete('/user/{user}', 'UserController@destroy');
 
 // Modificar Usuario
-Route::put('/user/{id}', 'UserController@update');
+Route::put('/user/{user}', 'UserController@update');
 // <<<<END OF ROUTES FOR USERS>>>>
 
 Route::group(['middleware' => 'auth:api'], function(){
